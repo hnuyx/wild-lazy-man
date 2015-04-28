@@ -8,6 +8,8 @@
 
 .PHONY: all
 all:
+	mkdir -p include
+	mkdir -p libs
 	$(MAKE) -C common
 	cp common/*.h include
 	$(MAKE) -C file
