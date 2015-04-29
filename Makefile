@@ -14,14 +14,18 @@ all:
 	cp common/*.h include
 	$(MAKE) -C file
 	cp file/*.h include
+	$(MAKE) -C mysql
+	cp mysql/*.h include
 
 .PHONY: clean
 clean:
 	$(MAKE) -C common clean
 	$(MAKE) -C file clean
+	$(MAKE) -C mysql clean
 
 .PHONY: cleanall
 cleanall:
 	$(MAKE) -C common cleanall
 	$(MAKE) -C file cleanall
+	$(MAKE) -C mysql cleanall
 	rm -rf include/*.h

@@ -2,6 +2,12 @@
 
 Base Library, BL for initial abberviation as follow.
 -----------------------------------------------------------------
+2015.04.29
+5. add mysql/mysql_op.h mysql/mysql_op.cpp mysql/Makefile
+	mysql_op.h mysql_op.cpp: mysql operation
+	Makefile: compile libMysqlOp.so
+
+-----------------------------------------------------------------
 2015.04.28
 2. add common/Makefile
 	Makefile: compile libBLCommon.so
