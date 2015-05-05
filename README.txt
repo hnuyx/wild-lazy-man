@@ -2,6 +2,12 @@
 
 Base Library, BL for initial abberviation as follow.
 -----------------------------------------------------------------
+2015.05.04
+6. add cpp/kmp.cpp cpp/qsort.cpp cpp/Makefile
+	kmp.cpp: kmp get next function
+	qsort.cpp: qsort function
+	Makefile: compile current files
+
 2015.04.29
 5. add mysql/mysql_op.h mysql/mysql_op.cpp mysql/Makefile
 	mysql_op.h mysql_op.cpp: mysql operation
