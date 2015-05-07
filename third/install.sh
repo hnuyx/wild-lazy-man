@@ -13,8 +13,11 @@ log4cplus_pkg="log4cplus-1.1.0"
 protobuf_pkg="protobuf-2.4.1"
 # gtest
 # libevent
+libevent_pkg="libevent-2.0.21-stable"
 # boost
 # memcached
+memcached_pkg="memcached-1.4.21"
+libmemcached_pkg="libmemcached-1.0.18"
 
 # install directory
 InstallDir=$HOME/usr
@@ -141,16 +144,65 @@ install_protobuf()
 	automake_install $ThirdPartDir $protobuf_pkg
 }
 
+install_libevent()
+{
+	echo ""
+	echo "install libevent"
+
+	if [ ! -f $ThirdPartDir/$libevent_pkg$TARGZ ]; then
+		echo "$ThirdPartDir/$libevent_pkg$TARGZ is not exist!!!"
+		return
+	fi
+
+	# add env var
+	add_env_var LIBEVENT_ROOT $InstallDir
+
+	# extract pkg
+	extract_pkg $ThirdPartDir $libevent_pkg $TARGZ
+
+	# make and install
+	automake_install $ThirdPartDir $libevent_pkg
+}
+
+install_memcached()
+{
+	echo ""
+	echo "install memcached"
+
+	if [ ! -f $ThirdPartDir/$memcached_pkg$TARGZ ]; then
+		echo "$ThirdPartDir/$memcached_pkg$TARGZ is not exist!!!"
+		return
+	fi
+
+	if [ ! -f $ThirdPartDir/$libmemcached_pkg$TARGZ ]; then
+		echo "$ThirdPartDir/$libmemcached_pkg$TARGZ is not exist!!!"
+		return
+	fi
+
+	# add env var
+	add_env_var MEMCACHED_ROOT $InstallDir
+
+	# extract pkg
+	extract_pkg $ThirdPartDir $memcached_pkg $TARGZ
+	extract_pkg $ThirdPartDir $libmemcached_pkg $TARGZ
+
+	# make and install
+	automake_install $ThirdPartDir $memcached_pkg
+	automake_install $ThirdPartDir $libmemcached_pkg
+}
+
 # install google log4cplus
-install_log4cplus
+#install_log4cplus
 
 # install google protobuf
-install_protobuf
+#install_protobuf
 
 # install google test
 
 # install libevent
+#install_libevent
 
 # install boost
 
 # install memcached
+install_memcached
