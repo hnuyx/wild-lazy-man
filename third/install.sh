@@ -16,8 +16,8 @@ protobuf_pkg="protobuf-2.4.1"
 libevent_pkg="libevent-2.0.21-stable"
 # boost
 # memcached
-memcached_pkg="memcached-1.4.21"
-libmemcached_pkg="libmemcached-1.0.18"
+memcached_pkg="memcached-1.4.4"
+libmemcached_pkg="libmemcached-1.0.2"
 
 # install directory
 InstallDir=$HOME/usr
@@ -45,7 +45,7 @@ add_env_var()
 	echo "ENV: $env=$value"
 
 	# find env in env file
-	exist=`grep $env $EnvFile | wc -l`
+	exist=`grep "export $env=" $EnvFile | wc -l`
 
 	if [ 0 -eq $exist ]; then
 		# env not exist and add env into env file
@@ -53,9 +53,20 @@ add_env_var()
 	else
 		# env has already been exist and update it
 		echo "update env var: $1 IN FILE: $EnvFile"
-		sed -i "/$env/d" $EnvFile
+		sed -i "/export $env=/d" $EnvFile
 	fi
 	echo "export $env=$value" >> $EnvFile
+}
+
+# add base env
+add_base_env()
+{
+	add_env_var LD_LIBRARY_PATH \$LD_LIBRARY_PATH:$InstallDir/lib
+	add_env_var LIBRARY_PATH \$LIBRARY_PATH:$InstallDir/lib
+	add_env_var PATH \$PATH:$InstallDir/bin
+	add_env_var C_INCLUDE_PATH \$C_INCLUDE_PATH:$InstallDir/include
+	add_env_var CPLUS_INCLUDE_PATH \$CPLUS_INCLUDE_PATH:$InstallDir/include
+	source $EnvFile
 }
 
 # extract package
@@ -73,11 +84,11 @@ extract_pkg()
 	case $suffix in
 	$TARGZ)
 		cd $dir && tar xzvf $pkg$suffix > $dir/log/$pkg.log 2>&1
-		cd -
+		cd - > /dev/null
 		;;
 	$TGZ)
 		cd $dir && tar xzvf $pkg$suffix > $dir/log/$pkg.log 2>&1
-		cd -
+		cd - > /dev/null
 		;;
 	esac
 }
@@ -97,7 +108,7 @@ automake_install()
 	./configure --prefix=$InstallDir >> $dir/log/$pkg.log 2>&1
 	make >> $dir/log/$pkg.log 2>&1
 	make install >> $dir/log/$pkg.log 2>&1
-	cd -
+	cd - > /dev/null
 
 	rm -rf $dir/$pkg
 }
@@ -191,16 +202,19 @@ install_memcached()
 	automake_install $ThirdPartDir $libmemcached_pkg
 }
 
+# add base env
+add_base_env
+
 # install google log4cplus
-#install_log4cplus
+install_log4cplus
 
 # install google protobuf
-#install_protobuf
+install_protobuf
 
 # install google test
 
 # install libevent
-#install_libevent
+install_libevent
 
 # install boost
 
