@@ -2,6 +2,10 @@
 
 Base Library, BL for initial abberviation as follow.
 -----------------------------------------------------------------
+2015.05.26
+7. kidding.jpg
+
+-----------------------------------------------------------------
 2015.05.04
 6. add cpp/kmp.cpp cpp/qsort.cpp cpp/Makefile
 	kmp.cpp: kmp get next function
