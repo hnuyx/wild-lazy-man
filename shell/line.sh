@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #usec
-_usec=1
+__usec=1
 # rows, cols, half rows, half cols
-_rows=`tput lines`
-_cols=`tput cols`
-_hr=`expr $_rows / 2`
-_hc=`expr $_cols / 2`
+__rows=`tput lines`
+__cols=`tput cols`
+__hr=`expr $__rows / 2`
+__hc=`expr $__cols / 2`
 
 # drow dot
 # dot $row $col $char
@@ -44,7 +44,7 @@ hor_line()
 
 	# line
 	tput cup $_r 0
-	for((i=0;i<$_cols;++i))
+	for((i=0;i<$__cols;++i))
 	do
 		echo -n $_char
 		usleep $_usec
@@ -63,7 +63,7 @@ ver_line()
 	_char=$2
 
 	# line
-	for((i=0;i<$_rows;++i))
+	for((i=0;i<$__rows;++i))
 	do
 		tput cup $i $_c
 		echo -n $_char
