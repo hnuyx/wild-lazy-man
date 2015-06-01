@@ -22,7 +22,7 @@ dot()
 
 dot_space()
 {
-	# row, coloum, char
+	# row, coloum
 	_r=$1
 	_c=$2
 	tput cup $_r $_c
