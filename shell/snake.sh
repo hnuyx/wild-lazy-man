@@ -10,6 +10,11 @@ source line.sh
 # snake pid
 snake_pid=$$
 
+# snake speed
+snake_speed=100000
+# food count
+food_count=10
+
 # up/down/left/right key
 _UP_KEY='[A'
 _DOWN_KEY='[B'
@@ -45,26 +50,23 @@ _NEXT_POS=`expr \( ${SnakeBody[$SnakeHead]} + 1 \) % $_MAX_POS`
 # save stty attr
 _STTY_G=`stty -g`
 
-
-game_over()
-{
-	echo ""
-	echo "What The Fuck Operation"
-	echo "Game Over"
-	# show cursor
-	tput cnorm
-
-	exit -1
-}
-
 game_exit()
 {
 	kill -9 $snake_pid
 	stty $_STTY_G
 	# show cursor
 	tput cnorm
-	clear
 	exit 0
+}
+
+game_over()
+{
+	echo ""
+	echo "What The Fuck Operation"
+	echo "Game Over"
+	kill $PPID
+
+	game_exit
 }
 trap "game_exit" INT TERM
 
@@ -117,6 +119,7 @@ eat_food()
 	SnakeLen=`expr $SnakeLen + 1`
 	SnakeHead=`get_tail_pos`
 	SnakeBody[$SnakeHead]=$_NEXT_POS
+	snake_speed=`expr $snake_speed - 100`
 
 	if [ "$SnakeLen" -eq "$_MAX_POS" ]; then
 		success
@@ -127,8 +130,12 @@ rand_food()
 {
 	# get no-body position
 	_rp=`expr $RANDOM % $_MAX_POS`
+	try_food=0
 	while :
 	do
+		if [ "$try_food" -gt "10" ]; then
+			break
+		fi
 		case ${_MarkMap[$_rp]} in
 		$_Mark_SnakeBody)
 			_rp=`expr $RANDOM % $_MAX_POS`
@@ -138,6 +145,7 @@ rand_food()
 		;;
 		esac
 
+		try_food=`expr $try_food + 1`
 	done
 
 	# draw food
@@ -158,6 +166,9 @@ draw_next_pos()
 		rand_food
 	;;
 	*)
+	;;
+	esac
+
 		# erase tail position
 		SnakeHead=`get_tail_pos`
 		_rc=`get_rc ${SnakeBody[$SnakeHead]}`
@@ -169,15 +180,16 @@ draw_next_pos()
 		dot ${_rc[0]} ${_rc[1]} "#"
 		SnakeBody[$SnakeHead]=$_NEXT_POS
 		_MarkMap[${SnakeBody[$SnakeHead]}]=$_Mark_SnakeBody
-	;;
-	esac
 }
 
 live_snake()
 {
 	clear
 	init
-	rand_food
+	for((i=0;i<$food_count;++i))
+	do
+		rand_food
+	done
 
 	trap "_CUR_DIR=$_UP_DIR" $_UP_DIR
 	trap "_CUR_DIR=$_DOWN_DIR" $_DOWN_DIR
@@ -202,7 +214,7 @@ live_snake()
 		esac
 
 		draw_next_pos
-		usleep 50000
+		usleep $snake_speed
 	done
 }
 
