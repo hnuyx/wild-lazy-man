@@ -1,0 +1,7 @@
+
+eating snake
+
+configuration
+-----------------------------------------------------------------
+snake_speed: the more lower, the more faster
+food_count_init: food number

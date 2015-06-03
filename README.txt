@@ -2,6 +2,10 @@
 
 Base Library, BL for initial abberviation as follow.
 -----------------------------------------------------------------
+2015.06.03
+10. shell snake.sh: eating snake
+
+-----------------------------------------------------------------
 2015.05.27
 9. shell line.sh mi_line.sh cross_line.sh
 
