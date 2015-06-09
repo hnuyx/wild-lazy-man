@@ -2,6 +2,14 @@
 
 Base Library, BL for initial abberviation as follow.
 -----------------------------------------------------------------
+2015.06.09
+11. record/
+item_list_T.cpp item_list_T.h : item list
+item_pool_key_T.cpp item_pool_key_T.h : item pool by key
+item_pool_T.cpp  item_pool_T.h : item pool
+item_queue_T.cpp  item_queue_T.h : item queue
+
+-----------------------------------------------------------------
 2015.06.03
 10. shell snake.sh: eating snake
 
