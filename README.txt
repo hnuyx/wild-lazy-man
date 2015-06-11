@@ -4,6 +4,8 @@ Base Library, BL for initial abberviation as follow.
 -----------------------------------------------------------------
 2015.06.11
 12. doc/record.vsd : ItemPoolT ItemPoolKeyT
+13. thread/
+thread_base.h thread_base.cpp: thread base
 
 -----------------------------------------------------------------
 2015.06.09
