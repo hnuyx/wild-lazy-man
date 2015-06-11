@@ -2,6 +2,10 @@
 
 Base Library, BL for initial abberviation as follow.
 -----------------------------------------------------------------
+2015.06.11
+12. doc/record.vsd : ItemPoolT ItemPoolKeyT
+
+-----------------------------------------------------------------
 2015.06.09
 11. record/
 item_list_T.cpp item_list_T.h : item list
