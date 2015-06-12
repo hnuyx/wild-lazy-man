@@ -16,6 +16,7 @@
 namespace BL_NS
 {
 
+// base data type
 typedef unsigned long long  uint64;
 typedef unsigned int  uint32;
 typedef unsigned short uint16;
@@ -25,6 +26,11 @@ typedef long long  int64;
 typedef int  int32;
 typedef short int16;
 typedef char int8;
+
+// max ip size
+#define MAX_IP_SIZE	16
+// SOCKET BLOCK SIZE 10M
+#define SOCKET_BLOCK_SIZE	1024*1024*10
 
 }
 
