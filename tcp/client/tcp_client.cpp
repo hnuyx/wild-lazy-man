@@ -118,13 +118,13 @@ RECONNECT:
 	if(getsockname(m_socket, (struct sockaddr *)cli_addr, sizeof(cli_addr)) < 0)
 	{
 		// failed
-		snprintf(m_loc_ip, BL_NS::MAX_IP_SIZE, "127.0.0.1");
+		snprintf(m_loc_ip, BL_NS::MAX_IP_SIZE, "%s", "127.0.0.1");
 		m_loc_port = 0;
 	}
 	else
 	{
 		// success
-		snprintf(m_loc_ip, BL_NS::MAX_IP_SIZE, cli_addr.sin_addr.s_addr);
+		snprintf(m_loc_ip, BL_NS::MAX_IP_SIZE, "%s", inet_ntoa(cli_addr.sin_addr));
 		m_loc_port = ntohs(cli_addr.sin_port);
 	}
 
@@ -153,8 +153,31 @@ int TcpClient::read_n(char **vpter, BL_NS::uint32 n)
 }
 
 // send data
+// return n byts sent for success, -1 for failed
 int TcpClient::send_n(char *buf, BL_NS::uint32 n)
 {
+	// record left bytes and send result
+	int left = (int)n;
+	int ret = 0;
+
+	// disconnect
+	if(-1 == m_socket)
+	{
+		return -1;
+	}
+
+	while(left > 0)
+	{
+		ret = send(m_socket, buf + n - left, left, 0);
+		if(-1 == ret)
+		{
+			return -1;
+		}
+
+		left -= ret;
+	}
+
+	return (n - left);
 }
 
 /*******************EOF***********************************/

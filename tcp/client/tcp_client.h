@@ -35,6 +35,7 @@ public:
 	// return n byts read for success, -1 for failed
 	int read_n(char **vpter, BL_NS::uint32 n);
 	// send data
+	// return n byts sent for success, -1 for failed
 	int send_n(char *buf, BL_NS::uint32 n);
 
 protected:
