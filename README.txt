@@ -2,6 +2,12 @@
 
 Base Library, BL for initial abberviation as follow.
 -----------------------------------------------------------------
+2015.06.17
+14. php/page.php: php paging
+15. tcp/client/: Makefile tcp_client.cpp tcp_client.h
+	tcp_client.h tcp_client.cpp: tcp client
+
+-----------------------------------------------------------------
 2015.06.11
 12. doc/record.vsd : ItemPoolT ItemPoolKeyT
 13. thread/

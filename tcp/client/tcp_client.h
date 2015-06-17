@@ -31,9 +31,9 @@ public:
 	// recv data, read n bytes data from socket and store into buf
 	// return n byts read for success, -1 for failed
 	int read_n(char *buf, BL_NS::uint32 n);
-	// recv data, read n bytes data form cache block and set *vptr to the position of the data
+	// recv data, read n bytes data form cache block and set *pptr to the position of the data
 	// return n byts read for success, -1 for failed
-	int read_n(char **vpter, BL_NS::uint32 n);
+	int read_n(char **pptr, BL_NS::uint32 n);
 	// send data
 	// return n byts sent for success, -1 for failed
 	int send_n(char *buf, BL_NS::uint32 n);
@@ -52,11 +52,11 @@ private:
 	int m_recv_len;
 
 	// server ip, port
-	char m_srv_ip[BL_NS::MAX_IP_SIZE];
+	char m_srv_ip[BL_NS::BL_MAX_IP_SIZE];
 	int m_srv_port;
 
 	// local ip, port
-	char m_loc_ip[BL_NS::MAX_IP_SIZE];
+	char m_loc_ip[BL_NS::BL_MAX_IP_SIZE];
 	int m_loc_port;
 
 	// select time

@@ -28,9 +28,9 @@ typedef short int16;
 typedef char int8;
 
 // max ip size
-#define MAX_IP_SIZE	16
+const uint32 BL_MAX_IP_SIZE=16;
 // SOCKET BLOCK SIZE 10M
-#define SOCKET_BLOCK_SIZE	1024*1024*10
+const uint32 BL_SOCKET_BLOCK_SIZE=1024*1024*10;
 
 }
 
