@@ -10,6 +10,7 @@
 #define __FTP_OP_H__
 
 /*******************INCLUDE*******************************/
+#include "tcp_client.h"
 
 /*******************GLOBAL********************************/
 
@@ -17,14 +18,14 @@
 #define FTP_USERNAME_SIZE	128
 #define FTP_PASSWORD_SIZE	128
 
-class FtpOp
+class FtpOp : public TcpClient
 {
 public:
 	FtpOp();
 	~FtpOp();
 
 	// set ip, port
-	void set_ip_port(char *ip, short port);
+	void set_ip_port(char *ip, int port);
 	// set login user name, password
 	void set_login(char *usr, char *pwd);
 
