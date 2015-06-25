@@ -91,11 +91,12 @@ RECONNECT:
 	}
 
 	// set reused
-	bool b_reused = true;
-	if(setsockopt(m_socket, SOL_SOCKET, SO_REUSEADDR, (void *)&b_reused, sizeof(b_reused)) < 0)
+	int i_reused = 1;
+	if(setsockopt(m_socket, SOL_SOCKET, SO_REUSEADDR, (void *)&i_reused, sizeof(i_reused)) < 0)
 	{
 		disconnect();
 		printf("setsockopt SO_REUSEADDR failed, sleep: %ds, server: %s:%d\n", m_sleep_time, m_srv_ip, m_srv_port);
+		printf("error: %s\n", strerror(errno));
 		sleep(m_sleep_time);
 		goto RECONNECT;
 	}
@@ -203,6 +204,58 @@ int TcpClient::read_n(char *buf, BL_NS::uint32 n)
 	}
 
 	return (n - left);
+}
+
+// recv data, read data and store into buf, n is the size of buf
+// return n byts read for success, -1 for failed
+int TcpClient::read_data(char *buf, BL_NS::uint32 n)
+{
+	fd_set fset;
+	struct timeval ts;
+
+	// recv result
+	int ret = 0;
+
+	// disconnect
+	if(-1 == m_socket)
+	{
+		return -1;
+	}
+
+	FD_ZERO(&fset);
+	FD_SET(m_socket, &fset);
+	ts.tv_sec = m_select_time;
+	ts.tv_usec = 0;
+
+	if(select(m_socket + 1, &fset, 0, 0, &ts) > 0)
+	{
+		ret = recv(m_socket, buf, n, 0);
+		if(ret < 0)
+		{
+			if(EINTR == errno)
+			{
+				// interrupt
+				ret = 0;
+			}
+			else if(EAGAIN == errno)
+			{
+				//  resource temporaritily unavailable
+				sleep(m_sleep_time);
+				ret = 0;
+			}
+			else
+			{
+				// error
+				return -1;
+			}
+		}
+		else if(0 == ret)
+		{
+			return -1;
+		}
+	}
+
+	return ret;
 }
 
 // recv data, read n bytes data form cache block and set *vptr to the position of the data

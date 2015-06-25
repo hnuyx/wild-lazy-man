@@ -20,6 +20,8 @@ all:
 	cp record/*.h include
 	$(MAKE) -C tcp/client
 	cp tcp/client/*.h include
+	$(MAKE) -C ftp
+	cp ftp/*.h include
 
 .PHONY: clean
 clean:
@@ -28,6 +30,7 @@ clean:
 	$(MAKE) -C mysql clean
 	$(MAKE) -C record clean
 	$(MAKE) -C tcp/client clean
+	$(MAKE) -C ftp clean
 
 .PHONY: cleanall
 cleanall:
@@ -36,4 +39,5 @@ cleanall:
 	$(MAKE) -C mysql cleanall
 	$(MAKE) -C record cleanall
 	$(MAKE) -C tcp/client cleanall
+	$(MAKE) -C ftp cleanall
 	rm -rf include/*.h

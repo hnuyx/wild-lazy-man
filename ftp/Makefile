@@ -8,7 +8,7 @@
 
 CXX	:= g++
 
-INC_HEAD:= -I"../common" -I"../tcp/client/"
+INC_HEAD:= -I"../include"
 INC_SLIB:=
 CXXFLAGS:= -Wall -c -fPIC -Wno-deprecated -g $(INC_HEAD) $(INC_SLIB)
 

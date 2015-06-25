@@ -7,6 +7,8 @@
  */
 
 /*******************INCLUDE*******************************/
+#include <stdio.h>
+
 #include "ftp_op.h"
 
 /*******************GLOBAL********************************/
@@ -28,9 +30,25 @@ void FtpOp::set_ip_port(char *ip, int port)
 // set login user name, password
 void FtpOp::set_login(char *usr, char *pwd)
 {
+	// save user/pwd
+	snprintf(m_usr, FTP_USERNAME_SIZE, "%s", usr);
+	snprintf(m_pwd, FTP_PASSWORD_SIZE, "%s", pwd);
+
+	// send user
+
+	// send password
 }
 
 // connect server
+int FtpOp::connect_ftp()
+{
+	connect_server();
+
+	// receive login data
+	int n = read_data(m_ftp_buf, FTP_BUFFER_MAX_SIZE);
+
+	return 0;
+}
 
 // cloes connect
 
