@@ -1,0 +1,22 @@
+Boost
+
+1. start
+http://www.boost.org/doc/libs/1_58_0/more/getting_started/index.html
+http://www.boost.org/doc/libs/1_58_0/more/getting_started/unix-variants.html
+
+下载：boost_1_58_0.tar.bz2
+
+$ tar --bzip2 -xf /path/to/boost_1_58_0.tar.bz2
+Nothing to Build.
+
+$ vi ~/.bash_profile
+
+export BOOST_ROOT=$HOME/usr/boost_1_58_0
+
+2. install boost
+$ ./bootstrap.sh --prefix=$HOME/usr
+$ ./b2 install
+
+install part
+--show-libraries
+--with-libraries=library-name-list
