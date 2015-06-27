@@ -1,0 +1,45 @@
+linux mysql
+
+下载地址：http://dev.mysql.com/downloads/
+
+1.
+启动
+# service mysqld restart
+
+# chkconfig --list | grep mysqld
+# chkconfig mysqld on
+
+修改密码
+# mysqladmin -uroot password "123456"
+
+查看安装路径
+# whereis mysql
+
+查看运行文件的所在地址
+# which mysql
+
+2.
+配置文件： /etc/my.cnf
+mysql数据文件: /var/lib/mysql
+
+3.
+
+创建表
+CREATE TABLE <table-name>
+(
+	<col-1> <data-type>,
+	<col-2> <data-type>,
+	<col-3> <data-type>,
+	<col-4> <data-type>,
+	....
+	<col-N> <data-type>
+);
+
+插入数据
+INSERT INTO <table-name> VALUES (<value-1>, <value-2>, ... <value-N>);
+INSERT INTO <table-name> (col-1, col-2, col-3) VALUES (<value-1>, <value-2>, <value-3>);
+
+删除主键
+ALTER TABLE <table-name> DROP PRIMARY KEY;
+添加主键
+ALTER TABLE <table-name> ADD PRIMARY KEY(<key-name>);

@@ -1,0 +1,50 @@
+httpd 
+
+下载地址：
+http://httpd.apache.org/
+
+apr 下载地址：http://apr.apache.org/download.cgi
+pcre 下载地址：http://sourceforge.net/projects/pcre/
+
+安装
+apr
+# ./configure
+# make
+# make install
+
+apr-util
+# ./configure --with-apr=/usr/local/apr
+# make
+# make install
+
+pcre
+# ./configure
+# make
+# make install
+
+httpd
+# ./configure --prefix=/usr/local/apache
+# make
+# make install
+
+配置
+httpd
+# vi /usr/local/apache/conf/httpd.conf
+
+LoadModule php5_module modules_libphp5.so
+AddType application/x-httpd-php .php
+
+
+1.
+启动
+# /usr/local/apache/bin/apachectl restart
+
+配置
+# vi /etc/selinux/config
+SELINUX=disabled
+# reboot
+
+
+2.
+html 注释 <!-- **** -->
+php 注释 //

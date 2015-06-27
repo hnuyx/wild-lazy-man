@@ -1,0 +1,13 @@
+php
+
+下载地址：http://php.net/downloads.php
+
+apr 下载地址：http://apr.apache.org/download.cgi
+pcre 下载地址：http://sourceforge.net/projects/pcre/
+
+安装
+php
+# ./configure --with-apxs2=/usr/local/apache/bin/apxs --with-mysql
+# make
+# make install
+
