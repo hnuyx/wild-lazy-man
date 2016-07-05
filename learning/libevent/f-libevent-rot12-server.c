@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -32,36 +33,58 @@ char rot13_char(char c)
 		return c;
 }
 
-void do_read(struct bufferevent ev_buffer, void *ctx)
+void do_read(struct bufferevent *ev_buffer, void *ctx)
 {
-	ssize_t n, left;
-
 	struct evbuffer *input = bufferevent_get_input(ev_buffer);
 	struct evbuffer *output = bufferevent_get_output(ev_buffer);
 
-	n = evbuffer_read(input, , MAX_LINE);
-	if(0 == n)
+	char buf[MAX_LINE];
+	ssize_t n = evbuffer_copyout(input, buf, MAX_LINE);
+	int ret = evbuffer_drain(input, n);
+	if(ret < 0)
 	{
-		printf("peer client shut down\n");
-		evutil_closesocket(fd);
-		free_fd_data(fd_data);
-		return ;
+		fprintf(stderr, "evbuffer_drain error\n");
 	}
-	else if(n < 0)
+	for(int i = 0; i < n; ++ i)
 	{
-		perror("recv");
-		evutil_closesocket(fd);
-		free_fd_data(fd_data);
-		return ;
+		buf[i] = rot13_char(buf[i]);
+	}
+	evbuffer_add(output, buf, n);
+
+	return ;
+}
+
+void do_error(struct bufferevent *ev_buffer, short error, void *ctx)
+{
+	fprintf(stderr, "do_error no: %d--%s\n", errno, strerror(errno));
+	if(error & BEV_EVENT_READING)
+	{
+		fprintf(stderr, "error encountered while reading\n");
+	}
+	else if(error & BEV_EVENT_WRITING)
+	{
+		fprintf(stderr, "error encountered while reading\n");
+	}
+	else if(error & BEV_EVENT_EOF)
+	{
+		fprintf(stderr, "eof file reached\n");
+	}
+	else if(error & BEV_EVENT_ERROR)
+	{
+		fprintf(stderr, "unrecoverable error encountered: %s\n", strerror(errno));
+	}
+	else if(error & BEV_EVENT_TIMEOUT)
+	{
+		fprintf(stderr, "user-specified timeout reached\n");
+	}
+	else if(error & BEV_EVENT_CONNECTED)
+	{
+		fprintf(stderr, "connect operation finished\n");
 	}
 
-	for(int i = 0; i < n; i ++)
-	{
-		fd_data->buf[i] = rot13_char(fd_data->buf[i]);
-	}
-	fd_data->len = n;
-
-	event_add(fd_data->ev_write, NULL);
+	evutil_socket_t cfd = bufferevent_getfd(ev_buffer);
+	evutil_closesocket(cfd);
+	bufferevent_free(ev_buffer);
 
 	return ;
 }
@@ -78,6 +101,7 @@ void do_accept(evutil_socket_t lfd, short event, void *arg)
 	else if(cfd > FD_SETSIZE)
 	{
 		fprintf(stderr, "cliend fd %d > FD_SETSIZE %d\n", cfd, FD_SETSIZE);
+		evutil_closesocket(cfd);
 		return ;
 	}
 	evutil_make_socket_nonblocking(cfd);

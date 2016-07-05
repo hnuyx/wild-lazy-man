@@ -158,6 +158,12 @@ void do_accept(evutil_socket_t lfd, short event, void *arg)
 		perror("accept");
 		return ;
 	}
+	else if(cfd > FD_SETSIZE)
+	{
+		fprintf(stderr, "cliend fd %d > FD_SETSIZE %d\n", cfd, FD_SETSIZE);
+		evutil_closesocket(cfd);
+		return ;
+	}
 	evutil_make_socket_nonblocking(cfd);
 
 	Fd_data *fd_data = new_fd_data(ev_base, cfd);
