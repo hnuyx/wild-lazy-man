@@ -167,6 +167,7 @@ void run(struct event_base *ev_base)
 int main()
 {
 	setvbuf(stdout, NULL, _IONBF, 0);
+	event_enable_debug_mode();
 
 	struct event_base *ev_base = event_base_new();
 	if(NULL == ev_base)

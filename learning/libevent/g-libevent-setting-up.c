@@ -120,6 +120,7 @@ int main()
 	event_set_fatal_callback(handle_fatal_error);
 
 #ifdef EVENT_SET_MEM_FUNCTIONS_IMPLEMENTED
+	// memory magement
 	event_set_mem_functions(my_ev_malloc, my_ev_realloc, my_ev_free);
 #endif
 

@@ -1,5 +1,5 @@
 # web api
-# http://docs.cherrypy.org/en/latest/tutorials.html#tutorial-5-track-my-end-user-s-activity
+# http://docs.cherrypy.org/en/latest/tutorials.html
 
 import os, os.path
 import random
@@ -12,7 +12,7 @@ class StringGenerator(object):
 	def index(self):
 		return open('h-index.html')
 
-class StringGenerateOrWebservice(object):
+class StringGeneratorWebservice(object):
 	exposed = True
 
 	@cherrypy.tools.accept(media='text/plain')
@@ -47,5 +47,5 @@ if __name__ == '__main__':
 		}
 	}
 	webapp =StringGenerator()
-	webapp.generator = StringGenerateOrWebservice()
+	webapp.generator = StringGeneratorWebservice()
 	cherrypy.quickstart(webapp, '/', conf)

@@ -106,6 +106,7 @@ void run(void)
 	if(bind(lfd, (struct sockaddr *)&sin, sizeof(sin)) < 0)
 	{
 		perror("bind");
+		close(lfd);
 		return ;
 	}
 

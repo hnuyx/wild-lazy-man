@@ -1,5 +1,5 @@
 # web api
-# http://docs.cherrypy.org/en/latest/tutorials.html#tutorial-5-track-my-end-user-s-activity
+# http://docs.cherrypy.org/en/latest/tutorials.html
 
 import random
 import string
