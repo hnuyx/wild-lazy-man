@@ -1,0 +1,33 @@
+#****************************************************************************
+#
+# Makefile for template exe
+# henuyx
+# 2016-09-07
+#
+#****************************************************************************
+
+CXX	:= g++
+
+INC_HEAD:=
+INC_SLIB:=
+CXXFLAGS:= -Wall -fPIC -Wno-deprecated -g $(INC_HEAD) $(INC_SLIB)
+
+BIN_PATH := ./
+BIN		 := exe
+
+SOURCES = $(shell ls *.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+.PHONY: all
+all:$(BIN)
+
+$(BIN):$(OBJECTS)
+	@$(CXX) -o $(BIN_PATH)/$@ $(OBJECTS) $(CXXFLAGS)
+
+.PHONY: clean
+clean:
+	rm -f *.o *~
+
+.PHONY: cleanall
+cleanall:
+	rm -f *.o *~ $(BIN_PATH)/$(BIN)
