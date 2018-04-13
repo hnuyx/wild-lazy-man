@@ -15,7 +15,7 @@
 
 /*******************GLOBAL********************************/
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 #else
 template <typename ITEM>
@@ -61,7 +61,7 @@ public:
 	void free_used_item(int idx);
 
 	/* init pool */
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 private:
 	void init_pool();
 #else
@@ -74,7 +74,7 @@ protected:
 	KeyPosMap m_key_idx_map;
 	// pool
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 	ItemInfo m_ii_pool[SIZE];
 #else
 	ItemInfo *m_ii_pool;
@@ -86,7 +86,7 @@ protected:
 	bool m_init_flag;
 };
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 ItemPoolKeyT<ITEM, SIZE>::ItemPoolKeyT()
 #else
@@ -99,12 +99,12 @@ ItemPoolKeyT<ITEM>::ItemPoolKeyT()
 	m_free_head = NULL;
 	m_free_tail = NULL;
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 	init_pool();
 #endif
 }
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 ItemPoolKeyT<ITEM, SIZE>::~ItemPoolKeyT()
 #else
@@ -116,7 +116,7 @@ ItemPoolKeyT<ITEM>::~ItemPoolKeyT()
 }
 
 /* init pool */
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 void ItemPoolKeyT<ITEM, SIZE>::init_pool()
 #else
@@ -129,7 +129,7 @@ void ItemPoolKeyT<ITEM>::init_pool(int pool_size)
 		return ;
 	}
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 	m_pool_size = SIZE;
 #else
 	// malloc pool
@@ -166,7 +166,7 @@ void ItemPoolKeyT<ITEM>::init_pool(int pool_size)
 }
 
 /* get free idx */
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 int ItemPoolKeyT<ITEM, SIZE>::get_free_idx(std::string key)
 #else
@@ -189,7 +189,7 @@ int ItemPoolKeyT<ITEM>::get_free_idx(std::string key)
 }
 
 /* get used idx by key, return idx >=0, -1 for failed */
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 int ItemPoolKeyT<ITEM, SIZE>::get_used_idx(std::string key)
 #else
@@ -207,7 +207,7 @@ int ItemPoolKeyT<ITEM>::get_used_idx(std::string key)
 }
 
 /* get idx, return idx >=0, -1 for failed */
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 int ItemPoolKeyT<ITEM, SIZE>::get_idx(std::string key)
 #else
@@ -225,7 +225,7 @@ int ItemPoolKeyT<ITEM>::get_idx(std::string key)
 }
 
 /* get item by idx */
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 ITEM* ItemPoolKeyT<ITEM, SIZE>::get_item(int idx)
 #else
@@ -242,7 +242,7 @@ ITEM* ItemPoolKeyT<ITEM>::get_item(int idx)
 }
 
 /* free used item */
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 void ItemPoolKeyT<ITEM, SIZE>::free_used_item(int idx)
 #else

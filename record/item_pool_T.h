@@ -16,7 +16,7 @@
 /*******************GLOBAL********************************/
 
 // malloc size or fix size
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 #else
 template <typename ITEM>
@@ -42,7 +42,7 @@ public:
 	// free item
 	void free_item(ItemInfo *ii);
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 private:
 	// init pool
 	void init_pool();
@@ -53,7 +53,7 @@ public:
 #endif
 
 private:
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 	ItemInfo m_ii_pool[SIZE];
 #else
 	ItemInfo *m_ii_pool;
@@ -66,7 +66,7 @@ private:
 	bool m_init_flag;
 };
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 ItemPoolT<ITEM, SIZE>::ItemPoolT()
 #else
@@ -78,13 +78,15 @@ ItemPoolT<ITEM>::ItemPoolT()
 	m_free_head = NULL;
 	m_free_tail = NULL;
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 	m_pool_size=SIZE;
 	init_pool();
+#else
+	m_ii_pool = NULL;
 #endif
 }
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 ItemPoolT<ITEM, SIZE>::~ItemPoolT()
 #else
@@ -92,10 +94,17 @@ template <typename ITEM>
 ItemPoolT<ITEM>::~ItemPoolT()
 #endif
 {
+#ifdef _ITME_POOL_SIZE
+#else
+	if(NULL != m_ii_pool)
+	{
+		free(m_ii_pool);
+	}
+#endif
 }
 
 // get item
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 typename ItemPoolT<ITEM, SIZE>::ItemInfo* ItemPoolT<ITEM, SIZE>::get_item()
 #else
@@ -119,7 +128,7 @@ typename ItemPoolT<ITEM>::ItemInfo* ItemPoolT<ITEM>::get_item()
 }
 
 // free item
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 void ItemPoolT<ITEM, SIZE>::free_item(ItemPoolT<ITEM, SIZE>::ItemInfo *ii)
 #else
@@ -140,7 +149,7 @@ void ItemPoolT<ITEM>::free_item(ItemPoolT<ITEM>::ItemInfo *ii)
 }
 
 // init pool
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 void ItemPoolT<ITEM, SIZE>::init_pool()
 #else
@@ -153,7 +162,7 @@ void ItemPoolT<ITEM>::init_pool(int pool_size)
 		return ;
 	}
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 	m_pool_size = SIZE;
 #else
 	// malloc pool

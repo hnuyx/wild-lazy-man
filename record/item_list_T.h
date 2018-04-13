@@ -14,7 +14,7 @@
 
 /*******************GLOBAL********************************/
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 #else
 template <typename ITEM>
@@ -22,7 +22,7 @@ template <typename ITEM>
 class ItemListT
 {
 public:
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 	typedef ItemPoolT<ITEM, SIZE> POOL_MANAGER;
 #else
 	typedef ItemPoolT<ITEM> POOL_MANAGER;
@@ -45,7 +45,7 @@ public:
 	// is empty, return true for empty, false for not empty
 	bool is_empty();
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 #else
 	// init pool size
 	static void init_pool(int pool_size);
@@ -58,7 +58,7 @@ protected:
 	static POOL_MANAGER m_item_pool;
 };
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 typename ItemListT<ITEM, SIZE>::POOL_MANAGER ItemListT<ITEM, SIZE>::m_item_pool;
 #else
@@ -66,7 +66,7 @@ template <typename ITEM>
 typename ItemListT<ITEM>::POOL_MANAGER ItemListT<ITEM>::m_item_pool;
 #endif
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 ItemListT<ITEM, SIZE>::ItemListT()
 #else
@@ -78,7 +78,7 @@ ItemListT<ITEM>::ItemListT()
 	m_tail = NULL;
 }
 
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 ItemListT<ITEM, SIZE>::~ItemListT()
 #else
@@ -89,7 +89,7 @@ ItemListT<ITEM>::~ItemListT()
 }
 
 // push item, return 0 for success, -1 for failed
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 int ItemListT<ITEM, SIZE>::push_item_front(ITEM &item)
 #else
@@ -121,7 +121,7 @@ int ItemListT<ITEM>::push_item_front(ITEM &item)
 }
 
 // push item, return 0 for success, -1 for failed
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 int ItemListT<ITEM, SIZE>::push_item_back(ITEM &item)
 #else
@@ -154,7 +154,7 @@ int ItemListT<ITEM>::push_item_back(ITEM &item)
 }
 
 // pop item from front
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 void ItemListT<ITEM, SIZE>::pop_item_front()
 #else
@@ -188,7 +188,7 @@ void ItemListT<ITEM>::pop_item_front()
 }
 
 // pop item from back
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 void ItemListT<ITEM, SIZE>::pop_item_back()
 #else
@@ -222,7 +222,7 @@ void ItemListT<ITEM>::pop_item_back()
 }
 
 // clear all items
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 void ItemListT<ITEM, SIZE>::clear()
 #else
@@ -242,7 +242,7 @@ void ItemListT<ITEM>::clear()
 }
 
 // is empty, return true for empty, false for not empty
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 template <typename ITEM, int SIZE>
 bool ItemListT<ITEM, SIZE>::is_empty()
 #else
@@ -260,7 +260,7 @@ bool ItemListT<ITEM>::is_empty()
 }
 
 // init pool size
-#ifdef _ITME_POO_SIZE
+#ifdef _ITME_POOL_SIZE
 #else
 template <typename ITEM>
 void ItemListT<ITEM>::init_pool(int pool_size)
