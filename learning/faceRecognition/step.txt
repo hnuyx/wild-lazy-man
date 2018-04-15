@@ -1,0 +1,13 @@
+
+learn from: http://mp.weixin.qq.com/s/ty71EJKGCOOVxowsAlMhvA
+
+1. pip install dlib
+2. pip install scikit-image
+3. download shape_predictor_68_face_landmarks.dat
+            dlib_face_recognition_resnet_model_v1.dat (this file may not be usable)
+   from http://dlib.net/files/
+4. usage:
+   ./faceRecon.py shape_predictor_68_face_landmarks.dat dlib_face_recognition_resnet_model_v1.dat candidates test/test4.jpg 
+
+5. candidates: all images with name as input
+6. test/*.jpg: to be recognized
