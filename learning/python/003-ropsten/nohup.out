@@ -1,0 +1,8 @@
+  File "c-ropsten.py", line 2923
+    for acc in accounts:
+    ^
+IndentationError: unexpected indent
+  File "c-ropsten.py", line 2923
+    for acc in accounts:
+    ^
+IndentationError: unexpected indent

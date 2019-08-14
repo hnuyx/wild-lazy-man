@@ -1,0 +1,5 @@
+<form action="/new_message" method="post">
+    {% module xsrf_form_html() %}
+    <input type="text" name="message" />
+    <input type="submit" value="Post" />
+</form>
